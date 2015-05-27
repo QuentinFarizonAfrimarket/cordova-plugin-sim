@@ -2,6 +2,10 @@ var sim = {
   getSimInfo: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, 'Sim', 'getSimInfo', []);
   }
+  
+  getAirplaneModeStatus: function (successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, 'Sim', 'getAirplaneModeStatus', []);
+  }
 }
 
 cordova.addConstructor(function () {
