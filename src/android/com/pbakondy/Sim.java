@@ -19,6 +19,8 @@ import org.json.JSONException;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.provider.Settings;
+import android.content.Intent;
+import android.telephony.ServiceState;
 
 public class Sim extends CordovaPlugin {
 
@@ -78,8 +80,65 @@ public class Sim extends CordovaPlugin {
 		} catch (final Exception e) {
 			callbackContext.error(e.getMessage());
 		}
-    }
+    } else if(action.equals("enableAirplaneMode")){
+		try {
+			Settings.System.putInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
+			Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+			intent.putExtra("state", 1);
+			this.cordova.getActivity().sendBroadcast(intent);
+			
+			callbackContext.success(new JSONObject().put("enabled", true));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+	} else if(action.equals("disableAirplaneMode")){
+		try {
+			Settings.System.putInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
+			Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+			intent.putExtra("state", 0);
+			this.cordova.getActivity().sendBroadcast(intent);
+			
+			callbackContext.success(new JSONObject().put("enabled", false));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+	} else if(action.equals("toggleAirplaneMode")){
+		try {
+			// read the airplane mode setting
+			boolean isEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
+		
+			// toggle airplane mode
+			Settings.System.putInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, isEnabled ? 0 : 1);
+		
+			// Post an intent to reload
+			Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+			intent.putExtra("state", !isEnabled);
+			this.cordova.getActivity().sendBroadcast(intent);
+			
+			boolean endisEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
+			
+			callbackContext.success(new JSONObject().put("enabled", endisEnabled));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+	} else if (action.equals("getServiceState")){
+		try {
+			ServiceState serviceState = new ServiceState();
+			int state = serviceState.getState();
+			
+			callbackContext.success(new JSONObject().put("state", state));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+	
+	
+	}
 
+	
 	return false;
 	
   }

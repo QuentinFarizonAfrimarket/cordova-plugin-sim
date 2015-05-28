@@ -10,7 +10,23 @@
 	Sim.prototype.getAirplaneModeStatus = function (successCallback, errorCallback) {
 		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getAirplaneModeStatus', []);
 	};
-
+	
+	Sim.prototype.enableAirplaneMode = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'enableAirplaneMode', []);
+	};
+	
+	Sim.prototype.disableAirplaneMode = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'disableAirplaneMode', []);
+	};
+	
+	Sim.prototype.toggleAirplaneMode = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'toggleAirplaneMode', []);
+	};
+	
+	Sim.prototype.getServiceState = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getServiceState', []);
+	};
+	
 	if (cordovaRef && cordovaRef.addConstructor) {
         cordovaRef.addConstructor(init);
     }
