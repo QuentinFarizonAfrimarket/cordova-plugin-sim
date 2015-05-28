@@ -24,6 +24,8 @@ import android.telephony.ServiceState;
 
 public class Sim extends CordovaPlugin {
 
+String phonestate = "unknown";
+
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
     if (action.equals("getSimInfo")) {
@@ -126,26 +128,40 @@ public class Sim extends CordovaPlugin {
 		}
 	} else if (action.equals("getServiceState")){
 		try {
-			ServiceState serviceState = new ServiceState();
-			String phonestate;
-
-			switch(serviceState.getState()) {
-				case ServiceState.STATE_EMERGENCY_ONLY: 
-					phonestate = "STATE_EMERGENCY_ONLY";
-					break;
-				case ServiceState.STATE_IN_SERVICE: 
-					phonestate = "STATE_IN_SERVICE";
-					break;
-				case ServiceState.STATE_OUT_OF_SERVICE: 
-					phonestate = "STATE_OUT_OF_SERVICE"; 
-					break;
-				case ServiceState.STATE_POWER_OFF: 
-					phonestate = "STATE_POWER_OFF"; 
-					break;
-				default:
-					phonestate = "Unknown";
-					break;
-			}   
+			callbackContext.success(new JSONObject().put("state", phonestate));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+	} else if (action.equals("initServiceStateListener")){
+		try {
+			Context context = this.cordova.getActivity().getApplicationContext();
+			TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			
+			manager.listen(new PhoneStateListener() {    
+				@Override
+				public void onServiceStateChanged (ServiceState serviceState) {
+					super.onServiceStateChanged(serviceState);
+				
+					switch(serviceState.getState()) {
+						case ServiceState.STATE_EMERGENCY_ONLY: 
+							phonestate = "STATE_EMERGENCY_ONLY";
+							break;
+						case ServiceState.STATE_IN_SERVICE: 
+							phonestate = "STATE_IN_SERVICE";
+							break;
+						case ServiceState.STATE_OUT_OF_SERVICE: 
+							phonestate = "STATE_OUT_OF_SERVICE"; 
+							break;
+						case ServiceState.STATE_POWER_OFF: 
+							phonestate = "STATE_POWER_OFF"; 
+							break;
+						default:
+							phonestate = "Unknown";
+							break;
+					}
+				}
+			}, PhoneStateListener.LISTEN_SERVICE_STATE);
 			
 			callbackContext.success(new JSONObject().put("state", phonestate));
 			return true;
@@ -153,8 +169,8 @@ public class Sim extends CordovaPlugin {
 			callbackContext.error(e.getMessage());
 		}
 	
-	
 	}
+	
 
 	
 	return false;

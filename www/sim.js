@@ -27,6 +27,10 @@
 		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getServiceState', []);
 	};
 	
+	Sim.prototype.initServiceStateListener = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'initServiceStateListener', []);
+	};
+	
 	if (cordovaRef && cordovaRef.addConstructor) {
         cordovaRef.addConstructor(init);
     }
