@@ -18,6 +18,7 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.provider.Settings;
 
 public class Sim extends CordovaPlugin {
 
@@ -71,7 +72,7 @@ public class Sim extends CordovaPlugin {
 	
 	if(action.equals("getAirplaneModeStatus")){
 		boolean isEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
-		callbackContext.success(new JSONObject().put("returnVal", isEnabled));
+		callbackContext.success(new JSONObject().put("enabled", isEnabled));
 		return true;
     } else {
       return false;
