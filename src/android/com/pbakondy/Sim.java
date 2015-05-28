@@ -25,50 +25,59 @@ public class Sim extends CordovaPlugin {
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if (action.equals("getSimInfo")) {
-      Context context = this.cordova.getActivity().getApplicationContext();
+		try {
+			Context context = this.cordova.getActivity().getApplicationContext();
 
-      TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-      String phoneNumber = manager.getLine1Number();
-      String countryCode = manager.getSimCountryIso();
-      String simOperator = manager.getSimOperator();
-      String carrierName = manager.getSimOperatorName();
+			String phoneNumber = manager.getLine1Number();
+			String countryCode = manager.getSimCountryIso();
+			String simOperator = manager.getSimOperator();
+			String carrierName = manager.getSimOperatorName();
 
-      int callState = manager.getCallState();
-      int dataActivity = manager.getDataActivity();
-      int networkType = manager.getNetworkType();
-      int phoneType = manager.getPhoneType();
-      int simState = manager.getSimState();
+			int callState = manager.getCallState();
+			int dataActivity = manager.getDataActivity();
+			int networkType = manager.getNetworkType();
+			int phoneType = manager.getPhoneType();
+			int simState = manager.getSimState();
 
-      String mcc = "";
-      String mnc = "";
+			String mcc = "";
+			String mnc = "";
 
-      if (simOperator.length() >= 3) {
-        mcc = simOperator.substring(0, 3);
-        mnc = simOperator.substring(3);
-      }
+			if (simOperator.length() >= 3) {
+			mcc = simOperator.substring(0, 3);
+			mnc = simOperator.substring(3);
+			}
 
 
-      JSONObject result = new JSONObject();
+			JSONObject result = new JSONObject();
 
-      result.put("carrierName", carrierName);
-      result.put("countryCode", countryCode);
-      result.put("mcc", mcc);
-      result.put("mnc", mnc);
-      result.put("phoneNumber", phoneNumber);
+			result.put("carrierName", carrierName);
+			result.put("countryCode", countryCode);
+			result.put("mcc", mcc);
+			result.put("mnc", mnc);
+			result.put("phoneNumber", phoneNumber);
 
-      result.put("callState", callState);
-      result.put("dataActivity", dataActivity);
-      result.put("networkType", networkType);
-      result.put("phoneType", phoneType);
-      result.put("simState", simState);
+			result.put("callState", callState);
+			result.put("dataActivity", dataActivity);
+			result.put("networkType", networkType);
+			result.put("phoneType", phoneType);
+			result.put("simState", simState);
 
-      callbackContext.success(result);
-	  return true;
+			callbackContext.success(result);
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
+		
     } else if (action.equals("getAirplaneModeStatus")){
-		boolean isEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
-		callbackContext.success(new JSONObject().put("enabled", isEnabled));
-		return true;
+		try {
+			boolean isEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
+			callbackContext.success(new JSONObject().put("enabled", isEnabled));
+			return true;
+		} catch (final Exception e) {
+			callbackContext.error(e.getMessage());
+		}
     }
 
 	return false;

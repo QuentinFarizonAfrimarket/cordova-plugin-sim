@@ -2,8 +2,8 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="com.pbakondy.sim2"
-  version="1.0.8">
-  <name>SIM</name>
+  version="1.0.9">
+  <name>Sim</name>
   <description>A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, etc)</description>
   <license>MIT</license>
   <keywords>cordova,sim,carrier,mcc,mnc,telephonenumber</keywords>
@@ -15,7 +15,7 @@
   </engines>
 
   <js-module src="www/sim.js" name="Sim">
-    <clobbers target="window.plugins.sim" />
+    <clobbers target="Sim" />
   </js-module>
 
   <!-- android -->

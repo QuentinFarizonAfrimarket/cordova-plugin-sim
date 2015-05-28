@@ -1,13 +1,13 @@
 (function(){
     var cordovaRef = window.PhoneGap || window.cordova || window.Cordova;
 	
-	function sim() { }
+	function Sim() { }
 
-	sim.prototype.getSimInfo = function (successCallback, errorCallback) {
+	Sim.prototype.getSimInfo = function (successCallback, errorCallback) {
 		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getSimInfo', []);
 	};
   
-	sim.prototype.getAirplaneModeStatus = function (successCallback, errorCallback) {
+	Sim.prototype.getAirplaneModeStatus = function (successCallback, errorCallback) {
 		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getAirplaneModeStatus', []);
 	};
 
@@ -24,12 +24,12 @@
 	    }
 
 		if (!window.plugins.sim){
-			window.plugins.sim = new sim();
+			window.plugins.sim = new Sim();
 		}
 	}
 	
 	if (typeof module != 'undefined' && module.exports) {
-        module.exports = new sim();
+        module.exports = new Sim();
     }
 	
 })();
