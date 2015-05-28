@@ -1,18 +1,35 @@
-var sim = {
-  getSimInfo: function (successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'Sim', 'getSimInfo', []);
-  },
+(function(){
+    var cordovaRef = window.PhoneGap || window.cordova || window.Cordova;
+	
+	function sim() { }
+
+	sim.prototype.getSimInfo = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getSimInfo', []);
+	};
   
-  getAirplaneModeStatus: function (successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'Sim', 'getAirplaneModeStatus', []);
-  }
-}
+	sim.prototype.getAirplaneModeStatus = function (successCallback, errorCallback) {
+		return cordovaRef.exec(successCallback, errorCallback, 'Sim', 'getAirplaneModeStatus', []);
+	};
 
-cordova.addConstructor(function () {
-  if (!window.plugins) {
-    window.plugins = {};
-  }
+	if (cordovaRef && cordovaRef.addConstructor) {
+        cordovaRef.addConstructor(init);
+    }
+    else {
+        init();
+    }
 
-  window.plugins.sim = sim;
-  return window.plugins.sim;
-});
+	function init(){
+		if (!window.plugins) {
+			window.plugins = {};
+	    }
+
+		if (!window.plugins.sim){
+			window.plugins.sim = new sim();
+		}
+	}
+	
+	if (typeof module != 'undefined' && module.exports) {
+        module.exports = new sim();
+    }
+	
+})();
