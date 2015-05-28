@@ -64,14 +64,14 @@ public class Sim extends CordovaPlugin {
       result.put("simState", simState);
 
       callbackContext.success(result);
-    }
-	
-	if(action.equals("getAirplaneModeStatus")){
+	  return true;
+    } else if (action.equals("getAirplaneModeStatus")){
 		boolean isEnabled = Settings.System.getInt(this.cordova.getActivity().getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) == 1;
 		callbackContext.success(new JSONObject().put("enabled", isEnabled));
+		return true;
     }
 
-	return true;
+	return false;
 	
   }
 }
