@@ -127,9 +127,27 @@ public class Sim extends CordovaPlugin {
 	} else if (action.equals("getServiceState")){
 		try {
 			ServiceState serviceState = new ServiceState();
-			int state = serviceState.getState();
+			String phonestate;
+
+			switch(serviceState.getState()) {
+				case ServiceState.STATE_EMERGENCY_ONLY: 
+					phonestate = "STATE_EMERGENCY_ONLY";
+					break;
+				case ServiceState.STATE_IN_SERVICE: 
+					phonestate = "STATE_IN_SERVICE";
+					break;
+				case ServiceState.STATE_OUT_OF_SERVICE: 
+					phonestate = "STATE_OUT_OF_SERVICE"; 
+					break;
+				case ServiceState.STATE_POWER_OFF: 
+					phonestate = "STATE_POWER_OFF"; 
+					break;
+				default:
+					phonestate = "Unknown";
+					break;
+			}   
 			
-			callbackContext.success(new JSONObject().put("state", state));
+			callbackContext.success(new JSONObject().put("state", phonestate));
 			return true;
 		} catch (final Exception e) {
 			callbackContext.error(e.getMessage());
