@@ -21,6 +21,7 @@ import android.telephony.TelephonyManager;
 import android.provider.Settings;
 import android.content.Intent;
 import android.telephony.ServiceState;
+import android.telephony.PhoneStateListener;
 
 public class Sim extends CordovaPlugin {
 
