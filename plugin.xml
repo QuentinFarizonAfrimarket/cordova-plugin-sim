@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="com.pbakondy.sim2"
-  version="1.0.14">
+  version="1.0.15">
   <name>Sim</name>
   <description>A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, etc)</description>
   <license>MIT</license>
@@ -30,8 +30,6 @@
     <config-file target="AndroidManifest.xml" parent="/*">
 		<!-- for method getLine1Number() -->
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-		<!-- for methods for changing AirplaneMode -->
-		<uses-permission android:name="android.permission.WRITE_SETTINGS" />
     </config-file>
 
     <source-file src="src/android/com/pbakondy/Sim.java" target-dir="src/com/pbakondy" />
