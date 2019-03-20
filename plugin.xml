@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  id="com.pbakondy.sim2"
-  version="1.0.16">
-  <name>Sim</name>
-  <description>A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, etc)</description>
+  id="cordova-plugin-sim3"
+  version="2.0.0">
+  <name>SIM</name>
+  <description>A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, imei, etc)</description>
   <license>MIT</license>
   <keywords>cordova,sim,carrier,mcc,mnc,telephonenumber</keywords>
   <repo>https://github.com/pbakondy/cordova-plugin-sim</repo>
@@ -12,6 +12,7 @@
 
   <engines>
     <engine name="cordova" version=">=3.0.0"/>
+    <engine name="cordova-android" version=">=5.0.0"/>
   </engines>
 
   <js-module src="www/sim.js" name="Sim">
@@ -26,13 +27,16 @@
       </feature>
     </config-file>
 
-    
     <config-file target="AndroidManifest.xml" parent="/*">
 		<!-- for method getLine1Number() -->
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
     </config-file>
 
     <source-file src="src/android/com/pbakondy/Sim.java" target-dir="src/com/pbakondy" />
+
+    <js-module src="www/android/sim.js" name="SimAndroid">
+      <merges target="window.plugins.sim" />
+    </js-module>
   </platform>
 
   <!-- ios -->

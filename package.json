@@ -1,19 +1,20 @@
 {
-  "name": "cordova-plugin-sim2",
-  "version": "1.0.19",
-  "description": "A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, etc)",
+  "name": "cordova-plugin-sim",
+  "version": "2.0.0",
+  "description": "A plugin to get the device's SIM data (carrier name, mcc mnc, country code, telephonenumber, imei, etc)",
   "cordova": {
-    "id": "cordova-plugin-sim2",
+    "id": "cordova-plugin-sim3",
     "platforms": [
       "android",
       "ios",
       "wp7",
-      "wp8"
+      "wp8",
+      "windows"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/scwl/cordova-plugin-sim"
+    "url": "https://github.com/QuentinFarizonAfrimarket/cordova-plugin-sim"
   },
   "keywords": [
     "cordova",
@@ -23,11 +24,11 @@
     "mcc",
     "mnc",
     "telephonenumber",
+    "imei",
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
-    "cordova-wp7",
-    "cordova-wp8"
+    "cordova-windows"
   ],
   "engines": [
     {
@@ -35,6 +36,6 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "scwl",
+  "author": "Quentin Farizon",
   "license": "MIT"
 }
