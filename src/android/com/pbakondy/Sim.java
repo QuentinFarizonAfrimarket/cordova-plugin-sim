@@ -277,9 +277,8 @@ public class Sim extends CordovaPlugin {
       } catch (final Exception e) {
         callbackContext.error(e.getMessage());
       }
-    } else {
-      return false;
     }
+    return false;
   }
 
   private void hasReadPermission() {
