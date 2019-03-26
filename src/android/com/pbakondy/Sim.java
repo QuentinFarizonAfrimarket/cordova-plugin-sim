@@ -65,7 +65,7 @@ public class Sim extends CordovaPlugin {
 
   @SuppressLint("HardwareIds")
   @Override
-  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		callback = callbackContext;
 
     if (GET_SIM_INFO.equals(action)) {
